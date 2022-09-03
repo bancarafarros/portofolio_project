@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;900&display=swap');
+
+* {
+    font-family: Heebo;
+}
+
+.h1{
+    padding-top:60px;
+    padding-bottom: 5px;
+}
+
+.h2{
+    padding-top:4px;
+    padding-bottom: 5px;
+}
