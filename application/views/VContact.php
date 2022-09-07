@@ -32,6 +32,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
+            <a class="nav-link" style="color: green;" href=""><h4>Hellow, <?php echo $this->session->userdata('name') ?></h4></a>
               <a
                 style="color: black;"
                 class="nav-link"
@@ -41,6 +42,7 @@
               >
               <a class="nav-link" style="color: black;" href="<?php echo base_url('CDashboard/blog') ?>"><h4>Blog</h4></a>
               <a class="nav-link"  style="color: black; "href="<?php echo base_url('CDashboard') ?>"><h4>Contact</h4></a>
+              <a class="nav-link" style="color: black; "href="<?php echo base_url('CAuth/logout') ?>"><h4>Logout</h4></a>
             </div>
           </div>
         </div>
@@ -155,6 +157,34 @@
       </div>
       <br>
       <div class="border-bottom"></div> <br>
+
+      <!-- <div class="d-md-flex">
+              <!-- <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tr>
+                  <th>NO</th>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>Password</th>
+            </tr>
+              <?php
+              $no = 1;
+              foreach ($users as $usr) : 
+              ?>
+              <tr>
+                <td><?php echo $no++ ?></td>
+                <td><?php echo $usr->username ?></td>
+                <td><?php echo $usr->name ?></td>
+                <td><?php echo hash('sha256', '$usr->password') ?></td>
+              </tr>
+
+              <?php endforeach; ?>
+              </table>
+              </div>
+          </div>
+      </div>
+      <br>
+      <div class="border-bottom"></div> <br> -->
       
     </div>
     <footer class="container mt-5 py-5 text-center">
