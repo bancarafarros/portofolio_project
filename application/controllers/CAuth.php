@@ -1,6 +1,7 @@
 <?php
 
 class CAuth extends CI_Controller {
+    
     public function index() {
         $this->load->view('VLogin');
     }
@@ -21,6 +22,7 @@ class CAuth extends CI_Controller {
             redirect(base_url('CAuth'));
         
         } else {
+            $this->session->set_userdata('username', $auth->username);
             $this->session->set_userdata('name', $auth->name);
             redirect(base_url('CDashboard'));
         }

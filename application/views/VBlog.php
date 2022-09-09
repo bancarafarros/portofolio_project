@@ -34,10 +34,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
-              <a class="nav-link active" style="color: #FF6464;" aria-current="page" href="<?php echo base_url('CDashboard/blog') ?>"
+              <a class="nav-link active" style="color: #FF6464;" aria-current="page" href="<?php echo base_url('CHome/blog') ?>"
                 ><h4>Blog</h4></a>
-              <a class="nav-link" style="color: black;" href="<?php echo base_url('CDashboard/works') ?>"><h4>Works</h4></a>
-              <a class="nav-link" style="color: black;" href="<?php echo base_url('CDashboard') ?>"><h4>Contact</h4></a>
+              <a class="nav-link" style="color: black;" href="<?php echo base_url('CHome/works') ?>"><h4>Works</h4></a>
+              <a class="nav-link" style="color: black;" href="<?php echo base_url('CHome') ?>"><h4>Contact</h4></a>
             </div>
           </div>
         </div>

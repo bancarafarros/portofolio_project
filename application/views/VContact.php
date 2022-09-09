@@ -18,31 +18,26 @@
       <nav class="navbar navbar-expand-lg bg-light ms-5">
         <br /><br />
         <div class="container">
-          <button
-            class="navbar-toggler ms-5 border-0"
-            type="button"
-            style="position: absolute; right: 0"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button class="navbar-toggler ms-5 border-0" type="button" style="position: absolute; right: 0" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
-            <a class="nav-link" style="color: green;" href=""><h4>Hellow, <?php echo $this->session->userdata('name') ?></h4></a>
-              <a
-                style="color: black;"
-                class="nav-link"
-                aria-current="page"
-                href="<?php echo base_url('CDashboard/works') ?>"
-                ><h4>Works</h4></a
-              >
-              <a class="nav-link" style="color: black;" href="<?php echo base_url('CDashboard/blog') ?>"><h4>Blog</h4></a>
-              <a class="nav-link"  style="color: black; "href="<?php echo base_url('CDashboard') ?>"><h4>Contact</h4></a>
-              <a class="nav-link" style="color: black; "href="<?php echo base_url('CAuth/logout') ?>"><h4>Logout</h4></a>
+
+            <?php if ($this->session->userdata('name')) {
+              echo '<a class="nav-link"  style="color: green; "><h4>Hellow, ' . $this->session->userdata('name') .  '</h4></a>';
+            } ?>
+
+              <a style="color: black;" class="nav-link" aria-current="page" href="<?php echo base_url('CDashboard') ?>"><h4>Dashboard</h4></a>
+              <a style="color: black;" class="nav-link" aria-current="page" href="<?php echo base_url('CHome/works') ?>"><h4>Works</h4></a>
+              <a class="nav-link" style="color: black;" href="<?php echo base_url('CHome/blog') ?>"><h4>Blog</h4></a>
+              <a class="nav-link"  style="color: black; "href="<?php echo base_url('CHome') ?>"><h4>Contact</h4></a>
+              
+              <?php if (empty($this->session->userdata('name'))) {
+                echo '<a class="nav-link"  style="color: black; "href="' . base_url('CAuth') . '"><h4>Login</h4></a>';
+              } else if ($this->session->userdata('name')){
+                echo '<a class="nav-link"  style="color: black; "href="' . base_url('CAuth/logout') . '"><h4>Logout</h4></a>';
+              } ?>
             </div>
           </div>
         </div>
@@ -107,7 +102,7 @@
       <div class="d-md-flex">
         <img src="<?php echo base_url('assets/img/Rectangle 30.png') ?>" class="img-fluid" alt="">
           <div class="mt-md-0 mt-4 ps-4 pe-4">
-            <a href="<?php echo base_url('CDashboard/workdetail') ?>" style = "color: black; text-decoration: none;"><h4 class="">Designing Dashboard</h4></a>
+            <a href="<?php echo base_url('CHome/workdetail') ?>" style = "color: black; text-decoration: none;"><h4 class="">Designing Dashboard</h4></a>
               <div class="d-flex">
                 <span class="badge rounded-pill text-bg-dark me-3 mt-3 mb-3">2020</span>
                 <h7 class="text-muted mt-3 mb-3">Dashboard</h7>
@@ -157,35 +152,6 @@
       </div>
       <br>
       <div class="border-bottom"></div> <br>
-
-      <!-- <div class="d-md-flex">
-              <!-- <div class="table-responsive">
-                <table class="table table-bordered">
-                  <tr>
-                  <th>NO</th>
-                  <th>Username</th>
-                  <th>Name</th>
-                  <th>Password</th>
-            </tr>
-              <?php
-              $no = 1;
-              foreach ($users as $usr) : 
-              ?>
-              <tr>
-                <td><?php echo $no++ ?></td>
-                <td><?php echo $usr->username ?></td>
-                <td><?php echo $usr->name ?></td>
-                <td><?php echo hash('sha256', '$usr->password') ?></td>
-              </tr>
-
-              <?php endforeach; ?>
-              </table>
-              </div>
-          </div>
-      </div>
-      <br>
-      <div class="border-bottom"></div> <br> -->
-      
     </div>
     <footer class="container mt-5 py-5 text-center">
       <div class="d-flex gap-4 justify-content-center">

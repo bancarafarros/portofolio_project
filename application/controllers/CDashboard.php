@@ -1,39 +1,21 @@
-<?php
+<?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CDashboard extends CI_Controller {
-	public function index() {
-		$data['users'] = $this->musers->tampil_data()->result();
+    public function __construct() {
+        parent::__construct();
 
-		$this->load->view('VContact', $data);
-	}
+        if (empty($this->session->userdata('username'))) {
+            redirect(base_url('CAuth'));
+        }
+    }
 
-	public function works() {
-		$this->load->view('VWork');
-	}
-
-	public function blog() {
-		$this->load->view('VBlog');
-	}
-
-	public function workdetail() {
-		$this->load->view('VWorkDetail');
-	}
-
-	public function fungsiTambah() {
-		$id = $this->input->post('id');
-		$username = $this->input->post('username');
-		$name = $this->input->post('name');
-        $password = $this->input->post('password');
-
-		$ArrInsert = array(
-			'id' => $id,
-			'username' => $username,
-			'name' => $name,
-			'password' => $password
-		);
-
-		$this->db->insert('users', $ArrInsert);
-		redirect(base_url('CDashboard'));
-	}
+    public function index() {
+        $this->load->view('VHeader');
+        $this->load->view('VSidebar');
+        $this->load->view('VDashboard');
+        $this->load->view('VFooter');
+    }  
 }
+
+?>
