@@ -21,22 +21,36 @@ class CCategory extends CI_Controller {
     }
 
     public function fungsiTambah() {
-		$id = $this->input->post('id');
-		$name = $this->input->post('name');
-		
-        $ArrInsert = array(
-			'id' => $id,
-			'name' => $name
-		);
+        $this->form_validation->set_rules('name', 'Name', 'required|alpha',
+		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
 
-		$this->db->insert('categories', $ArrInsert);
-		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>Data berhasil disimpan</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-		</button>
-		</div>');
-		redirect(base_url('CCategory'));
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('message',  '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-text">' . form_error('name') . '</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect(base_url('CCategory'));
+        
+        } else {
+            $id = $this->input->post('id');
+            $name = $this->input->post('name');
+		
+            $ArrInsert = array(
+                'id' => $id,
+                'name' => $name
+            );
+            
+            $this->db->insert('categories', $ArrInsert);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect(base_url('CCategory'));
+        }
 	}
 
     public function halamanUpdate($id) {
@@ -49,37 +63,48 @@ class CCategory extends CI_Controller {
     }
 
     public function fungsiUpdate() {
-		$id = $this->input->post('id');
-		$name = $this->input->post('name');
-		
-		$ArrUpdate = array(
-			'id' => $id,
-			'name' => $name,
-		);
+        $this->form_validation->set_rules('name', 'Name', 'required|alpha',
+		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
 
-		$this->db->where('id', $id);
-		$this->db->update('categories', $ArrUpdate);
-		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>Data berhasil diubah</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-		</button>
-		</div>');
-		redirect(base_url('CCategory'));
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('message',  '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-text">' . form_error('name') . '</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect(base_url('CCategory'));
+        
+        } else {
+            $id = $this->input->post('id');
+            $name = $this->input->post('name');
+            
+            $ArrUpdate = array(
+                'id' => $id,
+                'name' => $name,
+            );
+            $this->db->where('id', $id);
+            $this->db->update('categories', $ArrUpdate);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-text"><strong>Data berhasil diubah</strong></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect(base_url('CCategory'));
+        }
 	}
 
     public function fungsiDelete($id) {
         $this->db->where('id', $id);
         $this->db->delete('categories');
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Data berhasil dihapus</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+        <span class="alert-text"><strong>Data berhasil dihapus</strong></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
         </button>
         </div>');
         redirect(base_url('CCategory'));
     }
     
 }
-
-?>

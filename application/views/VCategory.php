@@ -9,6 +9,7 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
+                    <?php echo $this->session->flashdata('message'); ?>
                         <table class="table table-hover table-striped table-bordered align-items-center text-center">
                             <thead>
                                 <tr>
@@ -32,8 +33,11 @@
                                             ) ?>
                                         </td>
                                         <td>
-                                            <!-- <buttton class="btn btn-danger" data-toggle="modal" data-target="#modalHapus"><i class="fa fa-trash"></i></button> -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <!-- <?php echo anchor(
+                                                'CCategory/fungsiDelete/' . $ctg->id,
+                                                '<div class="btn btn-danger"><i class="fa fa-trash"></i></div>'
+                                            ) ?> -->
+                                            <button type="button" class="btn btn-danger" data-id-category="<?= $ctg->id ?>" onclick="deleteConfirm('<?= $ctg->id ?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -106,10 +110,20 @@
                 </div>
                 <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tidak</button>
-                        <a href="<?php echo base_url('CCategory/fungsiDelete/' . $ctg->id) ?>" class="btn btn-danger ">Hapus</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Tidak</button>
+                        <a href="#" id="buttonHapus" class="btn btn-danger ">Hapus</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function deleteConfirm(id) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
+        var button = document.getElementById('buttonHapus');
+        button.href="<?= base_url('CCategory/fungsiDelete/') ?>" + id;
+        console.log(button);
+        myModal.toggle();
+    }
+    </script>
