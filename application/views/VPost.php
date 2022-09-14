@@ -48,7 +48,7 @@
                                         </td>
                                         <td>
                                             <!-- <buttton class="btn btn-danger" data-toggle="modal" data-target="#modalHapus"><i class="fa fa-trash"></i></button> -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <buttton class="btn btn-danger" data-id-category="<?= $pst->id ?>" onclick="deleteConfirm('<?= $pst->id ?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -81,37 +81,31 @@
                                     <label>Title</label>
                                     <input type="text" name="title" class="form-control" required>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="name">Category</label>
+                                    <div class="form-group">
+                                        <select class="form-select" name="category_id" multiple aria-label="multiple select example">
+                                            <?php foreach ($categories as $ctg) : ?>
+                                                <option value="<?php echo $ctg->name ?>"><?php echo $ctg->name ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
 
+                                
+                            </div>
+                            
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Content</label>
                                     <input type="text" name="content" class="form-control" required>
                                 </div>
-
-                                <!-- <div class="form-group">
-                                    <label for="name">Kode Rekening</label>
-                                    <div class="form-group">
-                                        <select required name="nama_pptk" class="form-control">
-
-                                            <option value="">--Pilih Kode Rekening--</option>
-                                            <?php
-                                            foreach ($user as $dxd) {
-
-                                                echo "<option value='" . $dxd->kode_rek . "'>" . $dxd->kode_rek . "</option>";
-                                            }
-                                            echo "
-		                                    </select>"
-                                            ?>
-                                    </div>
-                                </div> -->
-                            </div>
-
-                            <div class="col-md-6">
-
+                                
                                 <div class="form-group">
                                     <label>Featured Image</label>
                                     <input type="file" name="featured_image" class="form-control" required>
                                 </div>
-
                             </div>
                         </div>
                 </div>
@@ -126,41 +120,33 @@
         </div>
     </div>
 
-    
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                        <a href="<?php echo base_url('CPost/fungsiDelete/' . $pst->id) ?>" class="btn btn-danger ">Hapus</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                        <a href="<?php echo base_url('CPost/fungsiDelete/' . $pst->id) ?>" class="btn btn-danger ">Hapus</a>
-                    </div>
-                </div>
+    <!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Tidak</button>
+                <a href="#" id="buttonHapus" class="btn btn-danger ">Hapus</a>
             </div>
         </div>
     </div>
+</div>
+</div>
+
+<script>
+    function deleteConfirm(id) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
+        var button = document.getElementById('buttonHapus');
+        button.href = "<?= base_url('CPost/fungsiDelete/') ?>" + id;
+        console.log(button);
+        myModal.toggle();
+    }
+</script>

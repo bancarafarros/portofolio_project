@@ -1,6 +1,6 @@
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <!-- <div class="min-height-300 position-absolute w-100"></div> -->
+    <div class="min-height-300 position-absolute w-100"></div>
     <aside class="sidenav bg-secondary navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -10,7 +10,7 @@
             </a>
         </div>
         <hr class="horizontal dark mt-0">
-        <!-- <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main"> -->
+        <div class="collapse navbar-collapse " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link <?php echo $this->uri->segment(1) == 'CDashboard' ? 'active' : '' ?>" href="<?php echo base_url('CDashboard') ?>">
@@ -112,7 +112,7 @@
                                 <span class="d-sm-inline d-none">Login</span>
                             </a>';
                             } else if ($this->session->userdata('name')){
-                                echo '<a href="' . base_url('CAuth') . '" class="nav-link text-white font-weight-bold px-0">
+                                echo '<a href="' . base_url('CAuth/logout') . '" class="nav-link text-white font-weight-bold px-0">
                                 <span class="d-sm-inline d-none me-3">Logout</span>
                             </a>';
                             } ?>

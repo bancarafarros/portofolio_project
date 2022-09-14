@@ -24,8 +24,19 @@
                                         <label>Year</label>
                                         <input type="text" name="year" class="form-control" value="<?php echo $wrk->year ?>">
                                     </div>
-                                    
-                                    <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+
+                                    <div class="form-group ms-3 me-3">
+                                        <label for="name">Category</label>
+                                        <div class="form-group">
+                                            <select class="form-select" name="category_id[]" multiple aria-label="multiple select example">
+                                                <?php foreach ($categories as $ctg) : ?>
+                                                    <option value="<?php echo $ctg->id ?>"><?php echo $ctg->name ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <?php echo anchor('CWork', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
                                     <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
                                 </div>
 

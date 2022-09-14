@@ -55,7 +55,7 @@
                                         <td>
                                             <buttton class="btn btn-danger" data-id-category="<?= $wrk->id ?>" onclick="deleteConfirm('<?= $wrk->id ?>')">
                                                 <i class="fa fa-trash"></i>
-                                                </button>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -95,10 +95,9 @@
                                 <div class="form-group">
                                     <label for="name">Category</label>
                                     <div class="form-group">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Category</option>
+                                        <select class="form-select" name="category_id[]" multiple aria-label="multiple select example">
                                             <?php foreach ($categories as $ctg) : ?>
-                                                <option value="<?php echo $ctg->name ?>"><?php echo $ctg->name ?></option>
+                                                <option value="<?php echo $ctg->id ?>"><?php echo $ctg->name ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -154,7 +153,7 @@
     function deleteConfirm(id) {
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
         var button = document.getElementById('buttonHapus');
-        button.href = "<?= base_url('CCategory/fungsiDelete/') ?>" + id;
+        button.href = "<?= base_url('CWork/fungsiDelete/') ?>" + id;
         console.log(button);
         myModal.toggle();
     }

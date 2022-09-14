@@ -61,20 +61,21 @@ class CWork extends CI_Controller {
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            
             redirect(base_url('CWork'));
+        }
+            // $this->db->trans_start();
 
-        } else {
             $id = $this->input->post('id');
             $title = $this->input->post('title');
             $year = $this->input->post('year');
+            $category_id = $this->input->post('category_id');
             $content = $this->input->post('content');
 
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size']             = 100000000000000000000100000000000000000000;
-            $config['max_width']            = 100000000000000000000100000000000000000000;
-            $config['max_height']           = 100000000000000000000100000000000000000000;
+            $config['max_size']      = 100000000000000000000000000000000000000000;
+            $config['max_width']     = 100000000000000000000000000000000000000000;
+            $config['max_height']    = 100000000000000000000000000000000000000000;
             $this->upload->initialize($config);
             $file = $this->upload->do_upload('featured_image');
             $data = $this->upload->data();
@@ -87,19 +88,29 @@ class CWork extends CI_Controller {
                 $featured_image = $this->input->post('featured_image');
             }
 
-
-            $ArrInsert = array(
-                'id' => $id,
+            $arrInsert = array(
+                // 'id' => $id,
                 'title' => $title,
                 'year' => $year,
                 'content' => $content,
                 'featured_image' => $featured_image,
                 'created_by' => $this->session->userdata('id'),
-
+                'updated_by' => $this->session->userdata('id'),
             );
+            $this->db->insert('works', $arrInsert);
+            
+            $work_id = $this->db->insert_id();
+            
+            foreach ($category_id as $category) {
+                $arrInsert2 = array(
+                    'work_id' => $work_id,
+                    'category_id' => $category
+                );
+                $this->db->insert('work_categories', $arrInsert2);
+            }
+            
+            // $this->db->trans_complete();
 
-            $this->db->insert('works', $ArrInsert);
-            // $this->db->insert('work_categories', $ArrInsert);
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -107,18 +118,12 @@ class CWork extends CI_Controller {
             </button>
             </div>');
             redirect(base_url('CWork'));
-        }
 	}
-
-    public function FunctionName() {
-        $this->db->trans_start();
-        $this->db->insert('work_categories');
-        $this->db->trans_complete();
-    }
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
         $data['works'] = $this->mwork->halamanUpdate($where, 'works')->result();
+        $data['categories'] = $this->mcategory->tampilData()->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('VUpdateWork', $data);
@@ -159,10 +164,11 @@ class CWork extends CI_Controller {
             
             redirect(base_url('CWork'));
 
-        } else {
+        }
             $id = $this->input->post('id');
             $title = $this->input->post('title');
             $year = $this->input->post('year');
+            $category_id = $this->input->post('category_id');
             $content = $this->input->post('content');
 
             $config['upload_path'] = './uploads/';
@@ -183,18 +189,25 @@ class CWork extends CI_Controller {
             }
 
 
-            $ArrUpdate = array(
+            $arrUpdate = array(
                 'id' => $id,
                 'title' => $title,
                 'year' => $year,
                 'content' => $content,
                 'featured_image' => $featured_image,
                 'updated_by' => $this->session->userdata('id'),
-
             );
 
             $this->db->where('id', $id);
-            $this->db->update('works', $ArrUpdate);
+            $this->db->update('works', $arrUpdate);
+            
+            foreach ($category_id as $category) {
+                $arrUpdate2 = array(
+                    'category_id' => $category
+                );
+                $this->db->update('work_categories', $arrUpdate2);
+            }
+
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             <span class="alert-text"><strong>Data berhasil diubah</strong></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -202,7 +215,6 @@ class CWork extends CI_Controller {
             </button>
             </div>');
             redirect(base_url('CWork'));
-        }
 	}
 
     public function fungsiDelete($id) {

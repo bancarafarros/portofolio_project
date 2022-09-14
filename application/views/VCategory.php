@@ -33,10 +33,6 @@
                                             ) ?>
                                         </td>
                                         <td>
-                                            <!-- <?php echo anchor(
-                                                'CCategory/fungsiDelete/' . $ctg->id,
-                                                '<div class="btn btn-danger"><i class="fa fa-trash"></i></div>'
-                                            ) ?> -->
                                             <button type="button" class="btn btn-danger" data-id-category="<?= $ctg->id ?>" onclick="deleteConfirm('<?= $ctg->id ?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>

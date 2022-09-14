@@ -13,6 +13,7 @@ class CPost extends CI_Controller {
 
     public function index() {
         $data['posts'] = $this->mpost->tampilData();
+        $data['categories'] = $this->mcategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
@@ -44,48 +45,47 @@ class CPost extends CI_Controller {
             
             redirect(base_url('CPost'));
 
-        } else {
-            $id = $this->input->post('id');
-            $title = $this->input->post('title');
-            $content = $this->input->post('content');
+        }
+        
+        $id = $this->input->post('id');
+        $title = $this->input->post('title');
+        $content = $this->input->post('content');
 
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size']             = 100000000000000000000100000000000000000000;
-            $config['max_width']            = 100000000000000000000100000000000000000000;
-            $config['max_height']           = 100000000000000000000100000000000000000000;
-            $this->upload->initialize($config);
-            $file = $this->upload->do_upload('featured_image');
-            $data = $this->upload->data();
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['max_size']             = 100000000000000000000100000000000000000000;
+        $config['max_width']            = 100000000000000000000100000000000000000000;
+        $config['max_height']           = 100000000000000000000100000000000000000000;
+        $this->upload->initialize($config);
+        $file = $this->upload->do_upload('featured_image');
+        $data = $this->upload->data();
 
-            if ($file) {
+        if ($file) {
             $data = $this->upload->data();
             $featured_image = $data['file_name'];
             
-            } else {
+        } else {
             $featured_image = $this->input->post('featured_image');
-            }
-
-
-            $ArrInsert = array(
-                'id' => $id,
-                'title' => $title,
-                'content' => $content,
-                'featured_image' => $featured_image,
-                'created_by' => $this->session->userdata('id'),
-
-            );
-
-            $this->db->insert('posts', $ArrInsert);
-            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
-            redirect(base_url('CPost'));
         }
 
+
+        $ArrInsert = array(
+            'id' => $id,
+            'title' => $title,
+            'content' => $content,
+            'featured_image' => $featured_image,
+            'created_by' => $this->session->userdata('id'),
+
+        );
+
+        $this->db->insert('posts', $ArrInsert);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+        redirect(base_url('CPost'));
 	}
 
     public function halamanUpdate($id) {

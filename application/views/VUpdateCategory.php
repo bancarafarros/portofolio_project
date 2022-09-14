@@ -18,6 +18,7 @@
                                 <input type="hidden" name="id" class="form-control" value="<?php echo $ctg->id ?>" required>
                             </div>
 
+                            <?php echo anchor('CCategory', '<div class="btn btn-danger ms-3">Kembali</div>') ?>
                             <button type="submit" class="btn btn-primary ms-3">Simpan</button>
                         </form>
 
