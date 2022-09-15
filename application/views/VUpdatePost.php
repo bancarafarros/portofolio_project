@@ -17,12 +17,18 @@
                                     </div>
 
                                     <div class="form-group ms-3 me-3">
-                                        <label>Content</label>
-                                        <input type="text" name="content" class="form-control" value="<?php echo $pst->content ?>">
+                                        <label for="name">Category</label>
+                                        <div class="form-group">
+                                            <select class="form-select" name="category_id[]" multiple aria-label="multiple select example">
+                                                <?php foreach ($categories as $ctg) : ?>
+                                                    <option value="<?php echo $ctg->id ?>"><?php echo $ctg->name ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                    
-                                    <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
-                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
+
+                                    <!-- <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button> -->
                                 </div>
 
                                 <div class="col-md-6">
@@ -34,6 +40,14 @@
                                         <input type="hidden" name="featured_image" class="form-control" value="<?php echo $pst->featured_image ?>">
                                     </div>
                                 </div>
+
+                                <div class="form-group ms-3 me-3">
+                                    <label>Content</label>
+                                    <textarea class="form-control summernote" name="content" id="summernote" cols="30" rows="10" required><?php echo $pst->content?></textarea>
+                                </div>
+
+                                <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+                                <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
                             </div>
                 </div>
                 </form>
@@ -43,3 +57,22 @@
         </div>
     </div>
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $('.summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+</script>

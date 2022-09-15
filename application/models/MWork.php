@@ -2,14 +2,30 @@
 
 class MWork extends CI_Model {
 
-    public function rules() {
-        return [
-            [],
-        ];
-    }
+    // public function rules() {
+    //     return [
+    //         [],
+    //     ];
+    // }
 
     public function tampilData() {
-        return $this->db->get('works');
+        // $this->db->select([
+        //     "w.id",
+        //     "w.title",
+        //     "w.year",
+        //     "w.content",
+        //     "w.featured_image",
+        //     "w.created_at",
+        //     "w.updated_at",
+        //     "u.name as created_by",
+        //     "u2.name as updated_by"
+        // ]);
+        // $this->db->from("works w");
+        // $this->db->join("users u", "u.id = w.created_by", "left");
+        // $this->db->join("users u2", "u2.id = w.updated_by", "left");
+        return $this->db->get("works");
+        // return $tampilData->result();
+        // return $this->db->get('works');
     }
 
     public function workPreview($id) {

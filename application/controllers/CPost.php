@@ -25,8 +25,8 @@ class CPost extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required|alpha',
 		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
 
-        $this->form_validation->set_rules('content', 'Content', 'required|alpha',
-		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
+        $this->form_validation->set_rules('content', 'Content', 'required',
+		array('required' => '<strong>%s harus diisi</strong>'));
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('title',  '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -47,8 +47,11 @@ class CPost extends CI_Controller {
 
         }
         
+        // $this->db->trans_start();
+        
         $id = $this->input->post('id');
         $title = $this->input->post('title');
+        $category_id = $this->input->post('category_id');
         $content = $this->input->post('content');
 
         $config['upload_path'] = './uploads/';
@@ -68,17 +71,30 @@ class CPost extends CI_Controller {
             $featured_image = $this->input->post('featured_image');
         }
 
-
-        $ArrInsert = array(
-            'id' => $id,
+        $arrInsert = array(
+            // 'id' => $id,
             'title' => $title,
             'content' => $content,
             'featured_image' => $featured_image,
             'created_by' => $this->session->userdata('id'),
-
+            'updated_by' => $this->session->userdata('id')
         );
+        $this->db->insert('posts', $arrInsert);
 
-        $this->db->insert('posts', $ArrInsert);
+        $post_id = $this->db->insert_id();
+
+        foreach ($category_id as $category) {
+            $arrInsert2 = array(
+                'post_id' => $post_id,
+                'category_id' => $category,
+            );
+            // var_dump($arrInsert2);
+            // die;
+            $this->db->insert('post_categories', $arrInsert2);
+        }
+
+        // $this->db->trans_compplete();
+
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -91,6 +107,7 @@ class CPost extends CI_Controller {
     public function halamanUpdate($id) {
         $where = array('id' => $id);
         $data['posts'] = $this->mwork->halamanUpdate($where, 'posts')->result();
+        $data['categories'] = $this->mcategory->tampilData()->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('VUpdatePost', $data);
@@ -101,8 +118,8 @@ class CPost extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required|alpha',
 		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
 
-        $this->form_validation->set_rules('content', 'Content', 'required|alpha',
-		array('required' => '<strong>%s harus diisi</strong>', 'alpha' => '<strong>%s harus diisi dengan huruf saja</strong>'));
+        $this->form_validation->set_rules('content', 'Content', 'required',
+		array('required' => '<strong>%s harus diisi</strong>'));
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('title',  '<div class="alert alert-danger alert-dismissible fade show" role="alert">

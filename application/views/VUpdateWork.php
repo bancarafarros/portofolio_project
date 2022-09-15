@@ -25,6 +25,11 @@
                                         <input type="text" name="year" class="form-control" value="<?php echo $wrk->year ?>">
                                     </div>
 
+                                    <!-- <?php echo anchor('CWork', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button> -->
+                                </div>
+
+                                <div class="col-md-6">
                                     <div class="form-group ms-3 me-3">
                                         <label for="name">Category</label>
                                         <div class="form-group">
@@ -36,16 +41,6 @@
                                         </div>
                                     </div>
 
-                                    <?php echo anchor('CWork', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
-                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group ms-3 me-3">
-                                        <label>Content</label>
-                                        <input type="text" name="content" class="form-control" value="<?php echo $wrk->content ?>">
-                                    </div>
-
                                     <div class="form-group ms-3 me-3">
                                         <label>Featured Image</label>
                                         <img src="<?php echo base_url('./uploads/') . $wrk->featured_image ?>" border="0" width="70px" height="70px" />
@@ -53,6 +48,13 @@
                                         <input type="hidden" name="featured_image" class="form-control" value="<?php echo $wrk->featured_image ?>">
                                     </div>
                                 </div>
+                                <div class="form-group ms-3 me-3">
+                                        <label>Content</label>
+                                        <!-- <input type="text" name="content" class="form-control" value="<?php echo $wrk->content ?>"> -->
+                                        <textarea class="form-control summernote" name="content" id="summernote" required><?php echo $wrk->content?></textarea>
+                                    </div>
+                                    <?php echo anchor('CWork', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+                                    <button type="submit" class="btn btn-primary mb-1 ms-3 me-3">Simpan</button>
                             </div>
                 </div>
                 </form>
@@ -62,3 +64,22 @@
         </div>
     </div>
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $('.summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+</script>
