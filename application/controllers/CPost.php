@@ -12,7 +12,7 @@ class CPost extends CI_Controller {
     }
 
     public function index() {
-        $data['posts'] = $this->mpost->tampilData();
+        $data['posts'] = $this->mpost->tampilData()->result();
         $data['categories'] = $this->mcategory->tampilData()->result();
 
         $this->load->view('VHeader');

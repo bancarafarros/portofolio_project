@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4">
+            <div class="card mb-4 ps-1 pe-1">
                 <div class="card-header pb-0">
                     <buttton class="btn btn-primary mb-3" data-toggle="modal" data-target="#TambahData">
                         <i class="fas fa-plus-square me-2"></i>Tambah Data
@@ -9,13 +9,14 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
-                    <?php echo $this->session->flashdata('message'); ?>
-                        <table class="table table-hover table-striped table-bordered align-items-center text-center">
+                        <?php echo $this->session->flashdata('message'); ?>
+                        <table id="table" class="table table-hover table-striped table-bordered align-items-center text-center">
                             <thead>
                                 <tr>
                                     <th>NO</th>
                                     <th>Name</th>
-                                    <th colspan="2">Aksi</th>
+                                    <!-- <th colspan="2">Aksi</th> -->
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,8 +32,7 @@
                                                 'CCategory/halamanUpdate/' . $ctg->id,
                                                 '<div class="btn btn-warning"><i class="fa fa-edit"></i></div>'
                                             ) ?>
-                                        </td>
-                                        <td>
+
                                             <button type="button" class="btn btn-danger" data-id-category="<?= $ctg->id ?>" onclick="deleteConfirm('<?= $ctg->id ?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -70,14 +70,13 @@
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
 
-    
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <!-- Modal Konfirmasi Hapus -->
+        <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -96,15 +95,15 @@
         </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Tidak</button>
                         <a href="#" id="buttonHapus" class="btn btn-danger ">Hapus</a>
@@ -116,10 +115,20 @@
 
     <script>
         function deleteConfirm(id) {
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
-        var button = document.getElementById('buttonHapus');
-        button.href="<?= base_url('CCategory/fungsiDelete/') ?>" + id;
-        console.log(button);
-        myModal.toggle();
-    }
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
+            var button = document.getElementById('buttonHapus');
+            button.href = "<?= base_url('CCategory/fungsiDelete/') ?>" + id;
+            console.log(button);
+            myModal.toggle();
+        }
+    </script>
+
+    <!-- DataTables -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
     </script>

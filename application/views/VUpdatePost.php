@@ -26,28 +26,26 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
-                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button> -->
                                 </div>
 
                                 <div class="col-md-6">
-                                    <img src="<?php echo base_url('./uploads/') . $pst->featured_image ?>" border="0" width="100px" height="100px" />
-
                                     <div class="form-group ms-3 me-3">
                                         <label>Featured Image</label>
+                                        <img class="img-fluid ms-3 me-3" src="<?php echo base_url('./uploads/') . $pst->featured_image ?>" border="0" width="100px" height="100px" />
                                         <input type="file" name="featured_image" class="form-control">
                                         <input type="hidden" name="featured_image" class="form-control" value="<?php echo $pst->featured_image ?>">
                                     </div>
                                 </div>
 
-                                <div class="form-group ms-3 me-3">
+                                <div class="form-group ps-4 pe-4">
                                     <label>Content</label>
-                                    <textarea class="form-control summernote" name="content" id="summernote" cols="30" rows="10" required><?php echo $pst->content?></textarea>
+                                    <textarea class="form-control summernote ms-3 me-3" name="content" id="summernote" required><?php echo $pst->content ?></textarea>
                                 </div>
 
-                                <?php echo anchor('operator/CKegiatanCRUD/', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
-                                <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
+                                <div class="col-md-6">
+                                    <?php echo anchor('CPost', '<div class="btn btn-danger mb-1 ms-3 me-3">Kembali</div>') ?>
+                                    <button type="submit" class="btn btn-primary mb-1 me-3">Simpan</button>
+                                </div>
                             </div>
                 </div>
                 </form>
@@ -62,7 +60,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
     $('.summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: '',
         tabsize: 2,
         height: 120,
         toolbar: [

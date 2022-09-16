@@ -25,6 +25,8 @@ class CAuth extends CI_Controller {
             $this->session->set_userdata('username', $auth->username);
             $this->session->set_userdata('name', $auth->name);
             $this->session->set_userdata('id', $auth->id);
+            // var_dump($auth);
+            // die;
             redirect(base_url('CDashboard'));
         }
     }

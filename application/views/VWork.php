@@ -159,11 +159,12 @@
     }
 </script>
 
+<!-- Summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
     $('.summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: '',
         tabsize: 2,
         height: 120,
         toolbar: [
@@ -175,5 +176,15 @@
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']]
         ]
+    });
+</script>
+
+<!-- DataTables -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
     });
 </script>

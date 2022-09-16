@@ -14,7 +14,22 @@ class MPost extends CI_Model {
     public $updated_by;
 
     public function tampilData() {
-        return $this->db->get($this->_table)->result();
+        $this->db->select([
+            "p.id",
+            "p.title",
+            "p.content",
+            "p.featured_image",
+            "p.created_at",
+            "p.updated_at",
+            "u.name as created_by",
+            "u2.name as updated_by"
+        ]);
+        $this->db->join("users u", "u.id = p.created_by","left");
+        $this->db->join("users u2", "u2.id = p.updated_by","left");
+        $tampilData = $this->db->get("posts p");
+        return $tampilData;
+
+        // return $this->db->get($this->_table)->result();
     }
 
     public function fungsiTambah($data) {
