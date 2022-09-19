@@ -12,14 +12,71 @@ class CWork extends CI_Controller {
     }
 
     public function index() {
-        $data['works'] = $this->mwork->tampilData()->result();
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        // $data['works'] = $this->mwork->tampilData()->result();
+        // $data['categories'] = $this->mcategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
-        $this->load->view('VWork', $data);
+        $this->load->view('VWork');
         $this->load->view('VFooter');
     }
+
+    public function dataTable() {
+        $search = $this->input->post("search");
+        $draw  = intval($this->input->post("draw"));
+        $start  = intval($this->input->post("start"));
+        $length  = intval($this->input->post("length"));
+        $works = $this->mwork->getdatatable($search, $start, $length);
+        $no = $start + 1;
+    
+        foreach ($works as $i => $work) {
+            $work->no = $no++;
+        }
+        
+        $countAll = $this->mwork->countTotal();
+        $countFiltered = $this->mwork->countFiltered($search, $start, $length);
+    
+        return $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode([
+                    "draw"				=> $draw,
+                    "recordsTotal"		=> $countAll,
+                    "recordsFiltered"	=> $countFiltered,
+                    "data"				=> $works
+        ]));
+    }
+
+    // public function get_ajax() {
+    //     $list = $this->mwork->get_datatables();
+    //     $data = array();
+    //     $no = @$_POST['start'];
+    //     foreach ($list as $works) {
+    //         $no++;
+    //         $row = array();
+    //         $row[] = $no.".";
+    //         $row[] = $works->title;
+    //         $row[] = $works->year;
+    //         $row[] = $works->content;
+    //         $row[] = $works->featured_image . '<img src="'.base_url('uploads/'.$works->featured_image).'" class="img" style="width:100px">';
+    //         $row[] = $works->created_at;
+    //         $row[] = $works->created_by;
+    //         $row[] = $works->updated_at;
+    //         $row[] = $works->updated_by;
+    //         $row[] = '<a class="btn btn-warning" href="'.base_url('CWork/halamanUpdate/') . $works->id.'"><i class="fa fa-edit"></i></a>
+    //                     <buttton class="btn btn-danger" data-id-category="'. $works->id.'" onclick="deleteConfirm('.$works->id.')">
+    //                         <i class="fa fa-trash"></i>
+    //                     </button>';
+    //         $data[] = $row;
+    //     }
+    //     $output = array(
+    //                 "draw" => @$_POST['draw'],
+    //                 "recordsTotal" => $this->mwork->count_all(),
+    //                 "recordsFiltered" => $this->mwork->count_filtered(),
+    //                 "data" => $data,
+    //             );
+    //     // output to json format
+    //     echo json_encode($output);
+    // }
     
     public function halamanPreview($id) {
         $data['works'] = $this->mwork->workPreview($id);

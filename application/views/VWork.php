@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4">
+            <div class="card mb-4 ps-1 pe-1">
                 <div class="card-header pb-0">
                     <buttton class="btn btn-primary mb-3" data-toggle="modal" data-target="#TambahData">
                         <i class="fas fa-plus-square me-2"></i>Tambah Data
@@ -13,26 +13,25 @@
                         <?php echo $this->session->flashdata('title'); ?>
                         <?php echo $this->session->flashdata('year'); ?>
                         <?php echo $this->session->flashdata('content'); ?>
-                        <table class="table table-hover table-striped table-bordered align-items-center text-center">
+                        <table id="table" class="table table-hover table-striped table-bordered align-items-center text-center">
                             <thead>
                                 <tr>
-                                    <th>NO</th>
+                                    <th>No</th>
                                     <th>Title</th>
                                     <th>Year</th>
                                     <th>Content</th>
-                                    <th>Featured Image</th>
+                                    <th>Image</th>
                                     <th>Created At</th>
                                     <th>Created By</th>
                                     <th>Updated At</th>
                                     <th>Updated By</th>
-                                    <th colspan="3">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($works as $wrk) :
-                                ?>
+                                <!-- <?php
+                                        $no = 1;
+                                        foreach ($works as $wrk) :
+                                        ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $wrk->title ?></td>
@@ -47,18 +46,15 @@
                                             <a class="btn btn-success" target="_blank" href="<?= base_url('CWork/halamanpreview/') . $wrk->id ?>"><i class="fas fa-search-plus"></i></a>
                                         </td>
                                         <td>
-                                            <?= anchor(
-                                                'CWork/halamanUpdate/' . $wrk->id,
-                                                '<div class="btn btn-warning"><i class="fa fa-edit"></i></div>'
-                                            ) ?>
+                                            <a class="btn btn-warning" href="<?= base_url('CWork/halamanUpdate/') . $wrk->id ?>"><i class="fa fa-edit"></i></a>
                                         </td>
                                         <td>
                                             <buttton class="btn btn-danger" data-id-category="<?= $wrk->id ?>" onclick="deleteConfirm('<?= $wrk->id ?>')">
                                                 <i class="fa fa-trash"></i>
-                                                </button>
+                                            </button>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </tbody>
                         </table>
 
@@ -183,8 +179,67 @@
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#example').DataTable();
+    });
+</script> -->
+
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            colReorder: true,
+            stateSave:  true,
+            rowReorder: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "<?= site_url('CWork/dataTable') ?>",
+                type: "POST"
+            },
+
+            columns: [{
+                    data: 'no'
+                },
+                {
+                    data: 'title'
+                },
+                {
+                    data: 'year'
+                },
+                {
+                    data: 'content'
+                },
+                {
+                    data: 'featured_image'
+                },
+                {
+                    data: 'created_at'
+                },
+                {
+                    data: 'created_by'
+                },
+                {
+                    data: 'updated_at'
+                },
+                {
+                    data: 'updated_by'
+                },
+                {
+                    data: 'no',
+                    render: function(data, type, row, meta) {
+                        return '<a class="btn btn-success" target="_blank" href=" + 'data' + "><i class="fas fa-search-plus"></i></a>'
+                    }
+                },
+            ],
+
+            rowReorder: {
+                selector: 'tr'
+            },
+            columnDefs: [{
+                targets: 0,
+                visible: false
+            }]
+        });
     });
 </script>
