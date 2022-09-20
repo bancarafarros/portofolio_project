@@ -20,7 +20,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                <!-- <?php
                                 $no = 1;
                                 foreach ($categories as $ctg) :
                                 ?>
@@ -38,7 +38,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </tbody>
                         </table>
                     </div>
@@ -75,24 +75,24 @@
         </div>
 
 
-        <!-- Modal Konfirmasi Hapus -->
-        <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                        <a href="<?php echo base_url('CWork/fungsiDelete/' . $wrk->id) ?>" class="btn btn-danger ">Hapus</a>
-                    </div>
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
+                    <a href="<?php echo base_url('CWork/fungsiDelete/' . $wrk->id) ?>" class="btn btn-danger ">Hapus</a>
                 </div>
             </div>
         </div>
+    </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -127,8 +127,39 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             $('#table').DataTable();
         });
-    </script>
+    </script> -->
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            colReorder: true,
+            stateSave:  true,
+            rowReorder: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "<?= site_url('CCategory/dataTable') ?>",
+                type: "POST"
+            },
+
+            columns: [{
+                    data: 'no'
+                },
+                {
+                    data: 'name'
+                },
+            ],
+
+            // rowReorder: {
+            //     selector: 'tr'
+            // },
+            // columnDefs: [{
+            //     targets: 0,
+            //     visible: false
+            // }]
+        });
+    });
+</script>

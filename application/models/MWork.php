@@ -27,7 +27,8 @@ class MWork extends CI_Model {
         if ($search["value"] != "") {
             $this->db->or_like([
                 "title"		=> $search["value"],
-                "content"	=> $search["value"]
+                "content"	=> $search["value"],
+                "year"      => $search["value"]
             ]);
         }
     

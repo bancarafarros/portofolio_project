@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4 ps-1 pe-1">
+            <div class="card mb-4">
                 <div class="card-header pb-0">
                     <buttton class="btn btn-primary mb-3" data-toggle="modal" data-target="#TambahData">
                         <i class="fas fa-plus-square me-2"></i>Tambah Data
@@ -13,6 +13,37 @@
                         <?php echo $this->session->flashdata('title'); ?>
                         <?php echo $this->session->flashdata('year'); ?>
                         <?php echo $this->session->flashdata('content'); ?>
+
+                        <div class="row mb-1 ms-1">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Year</label>
+                                    <select class="form-select js-example-basic-single" size="3" name="year">
+                                        <?php foreach ($works as $wrk) : ?>
+                                            <option value="<?php echo $wrk->year ?>"><?php echo $wrk->year ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Category</label>
+                                    <select class="form-select js-example-basic-multiple" name="category_id[]" multiple="multiple">
+                                        <?php foreach ($categories as $ctg) : ?>
+                                            <option value="<?php echo $ctg->id ?>"><?php echo $ctg->name ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <buttton class="btn btn-primary mt-4" type="submit">
+                                    <i class="fas fa-filter me-1"></i>Filter
+                                </buttton>
+                            </div>
+                        </div>
+
                         <table id="table" class="table table-hover table-striped table-bordered align-items-center text-center">
                             <thead>
                                 <tr>
@@ -25,6 +56,7 @@
                                     <th>Created By</th>
                                     <th>Updated At</th>
                                     <th>Updated By</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,7 +221,7 @@
     $(document).ready(function() {
         $('#table').DataTable({
             colReorder: true,
-            stateSave:  true,
+            stateSave: true,
             rowReorder: true,
             processing: true,
             serverSide: true,
@@ -201,45 +233,65 @@
             columns: [{
                     data: 'no'
                 },
+
                 {
                     data: 'title'
                 },
+
                 {
                     data: 'year'
                 },
+
                 {
                     data: 'content'
                 },
+
                 {
                     data: 'featured_image'
                 },
+
                 {
                     data: 'created_at'
                 },
+
                 {
                     data: 'created_by'
                 },
+
                 {
                     data: 'updated_at'
                 },
+
                 {
                     data: 'updated_by'
                 },
-                {
-                    data: 'no',
-                    render: function(data, type, row, meta) {
-                        return '<a class="btn btn-success" target="_blank" href=" + 'data' + "><i class="fas fa-search-plus"></i></a>'
-                    }
-                },
             ],
 
-            rowReorder: {
-                selector: 'tr'
-            },
-            columnDefs: [{
-                targets: 0,
-                visible: false
-            }]
+            // rowReorder: {
+            //     selector: 'tr'
+            // },
+            // columnDefs: [{
+            //     targets: 0,
+            //     visible: false
+            // }]
+        });
+    });
+</script>
+
+<!-- Select2 -->
+<!-- single -->
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+
+<!-- multiple -->
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            closeOnSelect: false
         });
     });
 </script>

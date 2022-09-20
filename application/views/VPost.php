@@ -12,22 +12,23 @@
                         <?php echo $this->session->flashdata('message'); ?>
                         <?php echo $this->session->flashdata('title'); ?>
                         <?php echo $this->session->flashdata('content'); ?>
-                        <table class="table table-hover table-striped table-bordered align-items-center text-center">
+                        <table id="table" class="table table-hover table-striped table-bordered align-items-center text-center">
                             <thead>
                                 <tr>
-                                    <th>NO</th>
+                                <th>No</th>
                                     <th>Title</th>
                                     <th>Content</th>
-                                    <th>Featured Image</th>
+                                    <th>Image</th>
                                     <th>Created At</th>
                                     <th>Created By</th>
                                     <th>Updated At</th>
                                     <th>Updated By</th>
-                                    <th colspan="2">Aksi</th>
+                                    <th>Aksi</th>
+                                    <!-- <th colspan="2">Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                <!-- <?php
                                 $no = 1;
                                 foreach ($posts as $pst) :
                                 ?>
@@ -53,7 +54,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </tbody>
                         </table>
                     </div>
@@ -140,7 +141,6 @@
     </div>
 </div>
 </div>
-
 <script>
     function deleteConfirm(id) {
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
@@ -151,6 +151,7 @@
     }
 </script>
 
+<!-- Summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
@@ -167,5 +168,55 @@
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']]
         ]
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            colReorder: true,
+            stateSave:  true,
+            rowReorder: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "<?= site_url('CWork/dataTable') ?>",
+                type: "POST"
+            },
+
+            columns: [{
+                    data: 'no'
+                },
+                {
+                    data: 'title'
+                },
+                {
+                    data: 'content'
+                },
+                {
+                    data: 'featured_image'
+                },
+                {
+                    data: 'created_at'
+                },
+                {
+                    data: 'created_by'
+                },
+                {
+                    data: 'updated_at'
+                },
+                {
+                    data: 'updated_by'
+                },
+            ],
+
+            // rowReorder: {
+            //     selector: 'tr'
+            // },
+            // columnDefs: [{
+            //     targets: 0,
+            //     visible: false
+            // }]
+        });
     });
 </script>

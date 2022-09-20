@@ -12,12 +12,38 @@ class CCategory extends CI_Controller {
     }
 
     public function index() {
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        // $data['categories'] = $this->mcategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
-        $this->load->view('VCategory', $data);
+        // $this->load->view('VCategory', $data);
+        $this->load->view('VCategory');
         $this->load->view('VFooter');
+    }
+
+    public function dataTable() {
+        $search = $this->input->post("search");
+        $draw  = intval($this->input->post("draw"));
+        $start  = intval($this->input->post("start"));
+        $length  = intval($this->input->post("length"));
+        $works = $this->mcategory->getdatatable($search, $start, $length);
+        $no = $start + 1;
+    
+        foreach ($works as $i => $work) {
+            $work->no = $no++;
+        }
+        
+        $countAll = $this->mcategory->countTotal();
+        $countFiltered = $this->mcategory->countFiltered($search, $start, $length);
+    
+        return $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode([
+                    "draw"				=> $draw,
+                    "recordsTotal"		=> $countAll,
+                    "recordsFiltered"	=> $countFiltered,
+                    "data"				=> $works
+        ]));
     }
 
     public function fungsiTambah() {

@@ -13,6 +13,47 @@ class MPost extends CI_Model {
     public $updated_at;
     public $updated_by;
 
+    private function queryDataTable($search, $start, $length) {
+        $this->db->select([
+            "p.id",
+            "title",
+            "content",
+            "featured_image",
+            "created_at",
+            "u.name as created_by",
+            "u2.name as updated_by",
+            "updated_at",
+        ]);
+    
+        if ($search["value"] != "") {
+            $this->db->or_like([
+                "title"		=> $search["value"],
+                "content"	=> $search["value"]
+            ]);
+        }
+    
+        $this->db->order_by("id asc");
+        $this->db->join("users u", "u.id = p.created_by", "left");
+        $this->db->join("users u2", "u2.id = p.updated_by", "left");
+        $this->db->limit($length, $start);
+        $works = $this->db->get($this->_table . " p");
+        return $works;
+    }
+    
+    public function getDataTable($search, $start, $length) {
+        $works = $this->querydatatable($search, $start, $length)->result();
+        return $works;
+    }
+
+    public function countTotal(){
+        return $this->db->count_all($this->_table);
+    }
+    
+    public function countFiltered($search, $start, $length){
+        $works = $this->querydatatable($search, $start, $length);
+        return $works->num_rows();
+    }
+
     public function tampilData() {
         $this->db->select([
             "p.id",
