@@ -18,7 +18,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Year</label>
-                                    <select class="form-select js-example-basic-single" size="3" name="year">
+                                    <select class="form-select js-example-basic-single" name="year" id="year" size="3">
+                                        <option value="">Select year</option>
                                         <?php foreach ($works as $wrk) : ?>
                                             <option value="<?php echo $wrk->year ?>"><?php echo $wrk->year ?></option>
                                         <?php endforeach; ?>
@@ -29,7 +30,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Category</label>
-                                    <select class="form-select js-example-basic-multiple" name="category_id[]" multiple="multiple">
+                                    <select class="form-select js-example-basic-multiple" name="category[]" id="category" multiple="multiple">
                                         <?php foreach ($categories as $ctg) : ?>
                                             <option value="<?php echo $ctg->id ?>"><?php echo $ctg->name ?></option>
                                         <?php endforeach; ?>
@@ -38,7 +39,7 @@
                             </div>
 
                             <div class="col-md-2">
-                                <buttton class="btn btn-primary mt-4" type="submit">
+                                <buttton class="btn btn-primary mt-4" type="submit" id="btnf">
                                     <i class="fas fa-filter me-1"></i>Filter
                                 </buttton>
                             </div>
@@ -51,7 +52,7 @@
                                     <th>Title</th>
                                     <th>Year</th>
                                     <th>Content</th>
-                                    <th>Image</th>
+                                    <th>Featured Image</th>
                                     <th>Created At</th>
                                     <th>Created By</th>
                                     <th>Updated At</th>
@@ -219,71 +220,89 @@
 
 <script>
     $(document).ready(function() {
-        $('#table').DataTable({
-            colReorder: true,
-            stateSave: true,
-            rowReorder: true,
+        var filtered = $('#table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "<?= site_url('CWork/dataTable') ?>",
-                type: "POST"
+                url: "<?= base_url('CWork/dataTable') ?>",
+                type: "POST",
+                data: function(d) {
+                    d.year = $("#year").val();
+                    d.category = $("#category").val();
+                    console.log(d);
+                }
             },
 
             columns: [{
-                    data: 'no'
-                },
+                data: 'no'
+            },
 
-                {
-                    data: 'title'
-                },
+            {
+                data: 'title'
+            },
 
-                {
-                    data: 'year'
-                },
+            {
+                data: 'year'
+            },
 
-                {
-                    data: 'content'
-                },
+            {
+                data: 'content'
+            },
 
-                {
-                    data: 'featured_image'
-                },
+            {
+                data: 'featured_image'
+            },
 
-                {
-                    data: 'created_at'
-                },
+            {
+                data: 'created_at'
+            },
 
-                {
-                    data: 'created_by'
-                },
+            {
+                data: 'created_by'
+            },
 
-                {
-                    data: 'updated_at'
-                },
+            {
+                data: 'updated_at'
+            },
 
-                {
-                    data: 'updated_by'
-                },
-            ],
+            {
+                data: 'updated_by'
+            },
+        ],
 
-            // rowReorder: {
-            //     selector: 'tr'
-            // },
-            // columnDefs: [{
-            //     targets: 0,
-            //     visible: false
-            // }]
-        });
+        "columnDefs": [{
+            "targets": 4,
+            "render": function(data, type, row, meta) {
+                return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+            },
+        }],
+
+        "columnDefs": [{
+            "targets": 9,
+            "render": function(data, type, row, meta) {
+                return '<a class="btn btn-success me-3" target="_blank" href="<?= base_url('CWork/halamanpreview/') ?>' + row.id + '"><i class="fas fa-search-plus"></i></a>' +
+                        '<a class="btn btn-warning me-3" href="<?= base_url('CWork/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
+                        '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                    }
+                }],
+                
+                rowReorder: {
+                    selector: 'tr'
+                },
+            });
+            
+            $("#btnf").click(function(e) {
+                e.preventDefault();
+                filtered.draw();
+            });
     });
 </script>
 
 <!-- Select2 -->
 <!-- single -->
 <script>
-    // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
-        $('.js-example-basic-single').select2();
+        $('.js-example-basic-single').select2({});
     });
 </script>
 

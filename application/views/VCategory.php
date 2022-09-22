@@ -21,9 +21,9 @@
                             </thead>
                             <tbody>
                                 <!-- <?php
-                                $no = 1;
-                                foreach ($categories as $ctg) :
-                                ?>
+                                        $no = 1;
+                                        foreach ($categories as $ctg) :
+                                        ?>
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $ctg->name ?></td>
@@ -74,25 +74,24 @@
             </div>
         </div>
 
-
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                    <a href="<?php echo base_url('CWork/fungsiDelete/' . $wrk->id) ?>" class="btn btn-danger ">Hapus</a>
+        <!-- Modal Konfirmasi Hapus -->
+        <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin ingin menghapus data?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Data yang sudah dihapus tidak bisa dikembalikan</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
+                        <a href="<?php echo base_url('CWork/fungsiDelete/' . $wrk->id) ?>" class="btn btn-danger ">Hapus</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -113,30 +112,30 @@
         </div>
     </div>
 
-    <script>
-        function deleteConfirm(id) {
-            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
-            var button = document.getElementById('buttonHapus');
-            button.href = "<?= base_url('CCategory/fungsiDelete/') ?>" + id;
-            console.log(button);
-            myModal.toggle();
-        }
-    </script>
+<script>
+    function deleteConfirm(id) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
+        var button = document.getElementById('buttonHapus');
+        button.href = "<?= base_url('CCategory/fungsiDelete/') ?>" + id;
+        console.log(button);
+        myModal.toggle();
+    }
+</script>
 
-    <!-- DataTables -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
+<!-- DataTables -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> -->
     <!-- <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        });
-    </script> -->
-    <script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script> -->
+<script>
     $(document).ready(function() {
         $('#table').DataTable({
             colReorder: true,
-            stateSave:  true,
+            stateSave: true,
             rowReorder: true,
             processing: true,
             serverSide: true,
@@ -146,20 +145,25 @@
             },
 
             columns: [{
-                    data: 'no'
-                },
-                {
-                    data: 'name'
-                },
+                data: 'no'
+            },
+            {
+                data: 'name'
+            },
             ],
+
+            "columnDefs": [{
+                "targets": 2,
+                "row": "id",
+                "render": function(data, type, row, meta) {
+                    return'<a class="btn btn-warning me-3" href="<?= base_url('CCategory/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
+                            '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                }
+            }],
 
             // rowReorder: {
             //     selector: 'tr'
             // },
-            // columnDefs: [{
-            //     targets: 0,
-            //     visible: false
-            // }]
         });
     });
 </script>

@@ -36,13 +36,13 @@ class MPost extends CI_Model {
         $this->db->join("users u", "u.id = p.created_by", "left");
         $this->db->join("users u2", "u2.id = p.updated_by", "left");
         $this->db->limit($length, $start);
-        $works = $this->db->get($this->_table . " p");
-        return $works;
+        $posts = $this->db->get($this->_table . " p");
+        return $posts;
     }
     
     public function getDataTable($search, $start, $length) {
-        $works = $this->querydatatable($search, $start, $length)->result();
-        return $works;
+        $posts = $this->querydatatable($search, $start, $length)->result();
+        return $posts;
     }
 
     public function countTotal(){
@@ -50,8 +50,8 @@ class MPost extends CI_Model {
     }
     
     public function countFiltered($search, $start, $length){
-        $works = $this->querydatatable($search, $start, $length);
-        return $works->num_rows();
+        $posts = $this->querydatatable($search, $start, $length);
+        return $posts->num_rows();
     }
 
     public function tampilData() {

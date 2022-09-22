@@ -18,7 +18,7 @@
                                 <th>No</th>
                                     <th>Title</th>
                                     <th>Content</th>
-                                    <th>Image</th>
+                                    <th>Featured Image</th>
                                     <th>Created At</th>
                                     <th>Created By</th>
                                     <th>Updated At</th>
@@ -31,7 +31,7 @@
                                 <!-- <?php
                                 $no = 1;
                                 foreach ($posts as $pst) :
-                                ?>
+                                ?> 
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $pst->title ?></td>
@@ -48,7 +48,6 @@
                                             ) ?>
                                         </td>
                                         <td>
-                                            <!-- <buttton class="btn btn-danger" data-toggle="modal" data-target="#modalHapus"><i class="fa fa-trash"></i></button> -->
                                             <buttton class="btn btn-danger" data-id-category="<?= $pst->id ?>" onclick="deleteConfirm('<?= $pst->id ?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -180,7 +179,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "<?= site_url('CWork/dataTable') ?>",
+                url: "<?= site_url('CPost/dataTable') ?>",
                 type: "POST"
             },
 
@@ -209,14 +208,24 @@
                     data: 'updated_by'
                 },
             ],
-
+            
+            "columnDefs": [{
+                "targets": 3,
+                "render": function(data, type, row, meta) {
+                    return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+                }
+            }],
+            
+            "columnDefs": [{
+                "targets": 8,
+                "render": function(data, type, row, meta) {
+                    return '<a class="btn btn-warning me-3" href="<?= base_url('CPost/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
+                            '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                }
+            }],
             // rowReorder: {
             //     selector: 'tr'
             // },
-            // columnDefs: [{
-            //     targets: 0,
-            //     visible: false
-            // }]
         });
     });
 </script>
