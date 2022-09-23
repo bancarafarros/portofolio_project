@@ -209,20 +209,23 @@
                 },
             ],
             
-            "columnDefs": [{
-                "targets": 3,
-                "render": function(data, type, row, meta) {
-                    return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+            "columnDefs": [
+                {
+                    "targets": 3,
+                    "render": function(data, type, row, meta) {
+                        return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+                    }
+                },
+
+                {
+                    "targets": 8,
+                    "render": function(data, type, row, meta) {
+                        return '<a class="btn btn-warning me-3" href="<?= base_url('CPost/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
+                                '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                            }
                 }
-            }],
-            
-            "columnDefs": [{
-                "targets": 8,
-                "render": function(data, type, row, meta) {
-                    return '<a class="btn btn-warning me-3" href="<?= base_url('CPost/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
-                            '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                }
-            }],
+            ],
+
             // rowReorder: {
             //     selector: 'tr'
             // },

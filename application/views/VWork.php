@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                     <label for="name">Year</label>
                                     <select class="form-select js-example-basic-single" name="year" id="year" size="3">
-                                        <option value="">Select year</option>
+                                        <option selected value="">Select year</option>
                                         <?php foreach ($works as $wrk) : ?>
                                             <option value="<?php echo $wrk->year ?>"><?php echo $wrk->year ?></option>
                                         <?php endforeach; ?>
@@ -270,21 +270,24 @@
             },
         ],
 
-        "columnDefs": [{
-            "targets": 4,
-            "render": function(data, type, row, meta) {
-                return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+        columnDefs: [
+            {
+                "targets": 4,
+                orderable: true,
+                "render": function(data, type, row, meta) {
+                    return '<center><img src="<?= base_url('./uploads/') ?>' + row.featured_image + '" border="0" width="70px" height="70px"></center>';
+                }
             },
-        }],
 
-        "columnDefs": [{
-            "targets": 9,
-            "render": function(data, type, row, meta) {
-                return '<a class="btn btn-success me-3" target="_blank" href="<?= base_url('CWork/halamanpreview/') ?>' + row.id + '"><i class="fas fa-search-plus"></i></a>' +
-                        '<a class="btn btn-warning me-3" href="<?= base_url('CWork/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
-                        '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                    }
-                }],
+            {
+                "targets": 9,
+                "render": function(data, type, row, meta) {
+                    return '<a class="btn btn-success me-3" target="_blank" href="<?= base_url('CWork/halamanpreview/') ?>' + row.id + '"><i class="fas fa-search-plus"></i></a>' +
+                            '<a class="btn btn-warning me-3" href="<?= base_url('CWork/halamanUpdate/') ?>' + row.id + '"><i class="fa fa-edit"></i></a>' +
+                            '<buttton class="btn btn-danger" data-id-category="' + row.id + '" onclick="deleteConfirm(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                        }
+            }
+        ],
                 
                 rowReorder: {
                     selector: 'tr'
@@ -305,6 +308,26 @@
         $('.js-example-basic-single').select2({});
     });
 </script>
+<!-- <script>
+    $(document).ready(function() {
+        var filtered = $('.js-example-basic-single').select2({
+            ajax: {
+                url: "<?= base_url('CWork/dataTable') ?>",
+                type: "POST",
+                data: function(d) {
+                    d.year = $("#year").val();
+                    d.category = $("#category").val();
+                    console.log(d);
+                }
+            },
+        });
+
+        $("#btnf").click(function(e) {
+                e.preventDefault();
+                filtered.draw();
+            });
+    });
+</script> -->
 
 <!-- multiple -->
 <script>

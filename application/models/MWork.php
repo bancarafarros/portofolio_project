@@ -4,7 +4,6 @@ class MWork extends CI_Model {
 
     private $_table = "works";
 
-
     public function rules() {
         return [
             [],

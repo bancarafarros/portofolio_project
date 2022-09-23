@@ -1,11 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class CWork extends CI_Controller
-{
+class CWork extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
         if (empty($this->session->userdata('username'))) {
@@ -13,8 +11,7 @@ class CWork extends CI_Controller
         }
     }
 
-    public function index()
-    {
+    public function index() {
         $data['works'] = $this->mwork->tampilData()->result();
         $data['categories'] = $this->mcategory->tampilData()->result();
 
@@ -24,8 +21,7 @@ class CWork extends CI_Controller
         $this->load->view('VFooter');
     }
 
-    public function dataTable()
-    {
+    public function dataTable() {
         $search = $this->input->post("search");
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
@@ -54,8 +50,7 @@ class CWork extends CI_Controller
             ]));
     }
 
-    public function halamanPreview($id)
-    {
+    public function halamanPreview($id) {
         $data['works'] = $this->mwork->workPreview($id);
 
         $this->load->view('VHeader');
@@ -64,8 +59,7 @@ class CWork extends CI_Controller
         $this->load->view('VFooter');
     }
 
-    public function fungsiTambah()
-    {
+    public function fungsiTambah() {
         $this->form_validation->set_rules(
             'title',
             'Title',
@@ -166,8 +160,7 @@ class CWork extends CI_Controller
         redirect(base_url('CWork'));
     }
 
-    public function halamanUpdate($id)
-    {
+    public function halamanUpdate($id) {
         $where = array('id' => $id);
         $data['works'] = $this->mwork->halamanUpdate($where, 'works')->result();
         $data['categories'] = $this->mcategory->tampilData()->result();
@@ -177,8 +170,7 @@ class CWork extends CI_Controller
         $this->load->view('VFooter');
     }
 
-    public function fungsiUpdate()
-    {
+    public function fungsiUpdate() {
         $this->form_validation->set_rules(
             'title',
             'Title',
@@ -275,8 +267,7 @@ class CWork extends CI_Controller
         redirect(base_url('CWork'));
     }
 
-    public function fungsiDelete($id)
-    {
+    public function fungsiDelete($id) {
         $this->db->where('id', $id);
         $this->db->delete('works');
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
