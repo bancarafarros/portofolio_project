@@ -104,6 +104,7 @@ class CWork extends CI_Controller {
             </div>');
             redirect(base_url('CWork'));
         }
+
         $this->db->trans_start();
 
         $id = $this->input->post('id');
@@ -215,6 +216,8 @@ class CWork extends CI_Controller {
             </div>');
             redirect(base_url('CWork'));
         }
+        
+        $this->db->trans_start();
 
         $id = $this->input->post('id');
         $title = $this->input->post('title');
@@ -238,25 +241,26 @@ class CWork extends CI_Controller {
             $featured_image = $this->input->post('featured_image');
         }
 
-
         $arrUpdate = array(
-            'id' => $id,
+            // 'id' => $id,
             'title' => $title,
             'year' => $year,
             'content' => $content,
             'featured_image' => $featured_image,
             'updated_by' => $this->session->userdata('id'),
         );
-
         $this->db->where('id', $id);
         $this->db->update('works', $arrUpdate);
 
-        // foreach ($category_id as $category) {
-        //     $arrUpdate2 = array(
-        //         'category_id' => $category
-        //     );
-        //     $this->db->update('work_categories', $arrUpdate2);
-        // }
+        foreach ($category_id as $category) {
+            $arrUpdate2 = array(
+                'category_id' => $category,
+            );
+            $this->db->where('work_id', $id);
+            $this->db->update('work_categories', $arrUpdate2);
+        }
+
+        $this->db->trans_complete();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         <span class="alert-text"><strong>Data berhasil diubah</strong></span>

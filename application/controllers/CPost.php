@@ -12,7 +12,7 @@ class CPost extends CI_Controller {
     }
 
     public function index() {
-        // $data['posts'] = $this->mpost->tampilData()->result();
+        $data['posts'] = $this->mpost->tampilData()->result();
         $data['categories'] = $this->mcategory->tampilData()->result();
 
         $this->load->view('VHeader');
@@ -111,12 +111,10 @@ class CPost extends CI_Controller {
                 'post_id' => $post_id,
                 'category_id' => $category,
             );
-            // var_dump($arrInsert2);
-            // die;
             $this->db->insert('post_categories', $arrInsert2);
         }
 
-        $this->db->trans_compplete();
+        $this->db->trans_complete();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         <span class="alert-text"><strong>Data berhasil disimpan</strong></span>
@@ -158,52 +156,60 @@ class CPost extends CI_Controller {
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            
-            redirect(base_url('CPost'));
-
-        } else {
-            $id = $this->input->post('id');
-            $title = $this->input->post('title');
-            $content = $this->input->post('content');
-
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size']             = 100000000000000000000100000000000000000000;
-            $config['max_width']            = 100000000000000000000100000000000000000000;
-            $config['max_height']           = 100000000000000000000100000000000000000000;
-            $this->upload->initialize($config);
-            $file = $this->upload->do_upload('featured_image');
-            $data = $this->upload->data();
-
-            if ($file) {
-            $data = $this->upload->data();
-            $featured_image = $data['file_name'];
-            
-            } else {
-            $featured_image = $this->input->post('featured_image');
-            }
-
-
-            $ArrUpdate = array(
-                'id' => $id,
-                'title' => $title,
-                'content' => $content,
-                'featured_image' => $featured_image,
-                'updated_by' => $this->session->userdata('id'),
-
-            );
-
-            $this->db->where('id', $id);
-            $this->db->update('posts', $ArrUpdate);
-            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span class="alert-text"><strong>Data berhasil diubah</strong></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
             redirect(base_url('CPost'));
         }
-	}
+        
+        $this->db->trans_start();
+
+        $id = $this->input->post('id');
+        $title = $this->input->post('title');
+        $category_id = $this->input->post('category_id');
+        $content = $this->input->post('content');
+
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['max_size']             = 100000000000000000000100000000000000000000;
+        $config['max_width']            = 100000000000000000000100000000000000000000;
+        $config['max_height']           = 100000000000000000000100000000000000000000;
+        $this->upload->initialize($config);
+        $file = $this->upload->do_upload('featured_image');
+        $data = $this->upload->data();
+
+        if ($file) {
+            $data = $this->upload->data();
+            $featured_image = $data['file_name'];
+        } else {
+            $featured_image = $this->input->post('featured_image');
+        }
+
+        $ArrUpdate = array(
+            // 'id' => $id,
+            'title' => $title,
+            'content' => $content,
+            'featured_image' => $featured_image,
+            'updated_by' => $this->session->userdata('id'),
+        );
+        $this->db->where('id', $id);
+        $this->db->update('posts', $ArrUpdate);
+
+        foreach ($category_id as $category) {
+            $arrUpdate2 = array(
+                'category_id' => $category
+            );
+            $this->db->where('post_id', $id);
+            $this->db->update('post_categories', $arrUpdate2);
+        }
+
+        $this->db->trans_complete();
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span class="alert-text"><strong>Data berhasil diubah</strong></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+        redirect(base_url('CPost'));
+    }
 
     public function fungsiDelete($id) {
         $this->db->where('id', $id);
