@@ -14,16 +14,16 @@ body {
 
 .main {
 	background-color: white;
-	height: 1000px; /* auto */
+	height: 1010; /* auto */
 	width: 650px;
 	position: absolute;
 	transform: translate(-50%, -50%);
 	left: 50%;
-	top: 86%; /* 80 */
+	top: 87%; /* 80 */
 }
 
 .left {
-	background-color: #fbb03b;
+	background-color: #424651;
 	width: 200px;
 	height: 100%;
 	float: left;
@@ -41,31 +41,35 @@ body {
 	border-radius: 50%;
 	margin-bottom: 20px;
 	margin-left: 60px;
-	border: 10px solid #fbb03b;
-	box-shadow: 6px 7px 9px 5px #fbb03b73;
+	border: 10px solid #424651;
+	box-shadow: 6px 7px 9px 5px #42465173;
 }
 
 .profile-img img {
+	height: 100%;
 	width: 100%;
 	border-radius: 50%;
 }
+
 .box-1 {
 	position: relative;
 }
+
 .heading {
-	background-color: #4d4d4d;
+	background-color: #adb5bd;
 	padding: 10px;
-	color: #fbb03b;
+	color: #424651;
 	text-align: left;
 	padding-left: 20px;
 	margin-right: -15px;
 }
+
 .heading::after {
 	content: "";
 	position: absolute;
 	width: 21px;
 	height: 18px;
-	background-color: #5a5959;
+	background-color: #adb5bd;
 	left: 191px;
 	top: 26px;
 	transform: rotate(56deg);
@@ -75,6 +79,7 @@ body {
 .p1 {
 	padding: 9px 10px;
 	font-size: 11px;
+	color: #ffffff;
 }
 
 .icons1 {
@@ -85,7 +90,7 @@ body {
 
 .skill-container {
 	width: 90%;
-	background-color: #4d4d4d;
+	background-color: #070707;
 	margin: 0px 10px;
 }
 
@@ -93,37 +98,37 @@ body {
 	text-align: right;
 	padding-top: 2px;
 	padding-bottom: 2px;
-	color: white;
+	color: #F1F2EB;
 }
 
 .html {
-	width: 90%;
-	background-color: white;
+	width: 100%;
+	background-color: #F1F2EB;
 }
 
 .css {
 	width: 80%;
-	background-color: white;
+	background-color: #F1F2EB;
 }
 
 .js {
 	width: 85%;
-	background-color: white;
+	background-color: #F1F2EB;
 }
 
 .jquery {
 	width: 80%;
-	background-color: white;
+	background-color: #F1F2EB;
 }
 
 .web {
 	width: 85%;
-	background-color: white;
+	background-color: #F1F2EB;
 }
 
 .gra {
 	width: 70%;
-	background-color: white;
+	background-color: #F1F2EB;
 }
 
 .icons2 {
@@ -162,17 +167,17 @@ h2 {
 .icons3 {
 	vertical-align: bottom;
 	font-size: 21px !important;
-	color: #4d4d4d;
+	color: #adb5bd;
 }
 
 .p3 {
-	font-size: 13px;
+	font-size: 12px;
 	word-spacing: 1px;
 	letter-spacing: 0px;
 	margin-top: 10px;
 }
 
 .p3 span {
-	color: #ff9b00;
-	padding-left: 20px;
+	color: #ff6000;
+	padding-left: 10px;
 }

@@ -1,5 +1,4 @@
 <?php 
-
 class MHome extends CI_Model {
     
     private $_hobbies = "hobbies";
@@ -38,5 +37,4 @@ class MHome extends CI_Model {
         return $this->db->get($this->_experiences);
     }
 }
-
 ?>

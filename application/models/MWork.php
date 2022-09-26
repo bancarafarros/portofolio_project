@@ -107,11 +107,10 @@ class MWork extends CI_Model {
 		$this->db->update('works', $data);
     }
 
-    function fungsiDelete($id) {
+    public function fungsiDelete($id) {
 		$this->db->where('id', $id);
 		$this->db->delete('works');
 	}
 
 }
-
 ?>

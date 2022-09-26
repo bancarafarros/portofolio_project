@@ -86,7 +86,7 @@ class MPost extends CI_Model {
 		$this->db->update($this->_table, $data);
     }
 
-    function fungsiDelete($id) {
+    public function fungsiDelete($id) {
 		$this->db->where('id', $id);
 		$this->db->delete($this->_table);
 	}

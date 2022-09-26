@@ -218,7 +218,6 @@ class CWork extends CI_Controller {
         }
         
         $this->db->trans_start();
-
         $id = $this->input->post('id');
         $title = $this->input->post('title');
         $year = $this->input->post('year');
@@ -259,7 +258,6 @@ class CWork extends CI_Controller {
             $this->db->where('work_id', $id);
             $this->db->update('work_categories', $arrUpdate2);
         }
-
         $this->db->trans_complete();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">

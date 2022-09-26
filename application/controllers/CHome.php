@@ -30,11 +30,6 @@ class CHome extends CI_Controller {
 	}
 	
 	public function toPDF() {
-		// $imgpath = base_url('/bootstrap/img1.svg');
-		// $ext = pathinfo($imgpath, PATHINFO_EXTENSION);
-		// $data = file_get_contents($imgpath);
-		// $base64 = 'data:image/' . $ext . ';base64,' . base64_encode($data);
-
 		$data['hobbies'] = $this->mhome->tampilHobbies()->result();
 		$data['social_medias'] = $this->mhome->tampilSocialMedias()->result();
 		$data['cv_data'] = $this->mhome->tampilCVData()->result_array();
@@ -42,7 +37,7 @@ class CHome extends CI_Controller {
 		$data['educations'] = $this->mhome->tampilEducations()->result();
 		$data['languages'] = $this->mhome->tampilLanguages()->result();
 		$data['experiences'] = $this->mhome->tampilExperiences()->result();
-        
 		$this->topdf->generatePDF('VCV', $data);
     }
 }
+?>

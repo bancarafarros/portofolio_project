@@ -160,7 +160,6 @@ class CPost extends CI_Controller {
         }
         
         $this->db->trans_start();
-
         $id = $this->input->post('id');
         $title = $this->input->post('title');
         $category_id = $this->input->post('category_id');
@@ -199,7 +198,6 @@ class CPost extends CI_Controller {
             $this->db->where('post_id', $id);
             $this->db->update('post_categories', $arrUpdate2);
         }
-
         $this->db->trans_complete();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -224,5 +222,4 @@ class CPost extends CI_Controller {
     }
 
 }
-
 ?>
