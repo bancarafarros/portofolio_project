@@ -23,9 +23,9 @@ class CHome extends CI_Controller {
 		$data['social_medias'] = $this->mhome->tampilSocialMedias()->result();
 		$data['cv_data'] = $this->mhome->tampilCVData()->result_array();
 		$data['skills'] = $this->mhome->tampilSkills()->result();
-		$data['educations'] = $this->mhome->tampilEducations()->result();
+		$data['educations'] = $this->mhome->tampilEducations()->result_array();
 		$data['languages'] = $this->mhome->tampilLanguages()->result();
-		$data['experiences'] = $this->mhome->tampilExperiences()->result();
+		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
         $this->load->view('VCV', $data);
 	}
 	
@@ -34,9 +34,9 @@ class CHome extends CI_Controller {
 		$data['social_medias'] = $this->mhome->tampilSocialMedias()->result();
 		$data['cv_data'] = $this->mhome->tampilCVData()->result_array();
 		$data['skills'] = $this->mhome->tampilSkills()->result();
-		$data['educations'] = $this->mhome->tampilEducations()->result();
+		$data['educations'] = $this->mhome->tampilEducations()->result_array();
 		$data['languages'] = $this->mhome->tampilLanguages()->result();
-		$data['experiences'] = $this->mhome->tampilExperiences()->result();
+		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
 		$this->topdf->generatePDF('VCV', $data);
     }
 }

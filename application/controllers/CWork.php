@@ -149,7 +149,6 @@ class CWork extends CI_Controller {
             );
             $this->db->insert('work_categories', $arrInsert2);
         }
-
         $this->db->trans_complete();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">

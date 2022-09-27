@@ -44,6 +44,35 @@
                         <span class="nav-link-text ms-1">Post</span>
                     </a>
                 </li>
+
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">CV Pages</h6>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link <?php echo $this->uri->segment(2) == 'CSocialMedia' ? 'active' : '' ?>" href="<?php echo base_url('cv/CSocialMedia') ?>">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-id-card"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Social Media</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo $this->uri->segment(2) == 'CEducation' ? 'active' : '' ?>" href="<?php echo base_url('cv/CEducation') ?>">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Education</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link <?php echo $this->uri->segment(2) == 'CExperience' ? 'active' : '' ?>" href="<?php echo base_url('cv/CExperience') ?>">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-briefcase"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Experience</span>
+                    </a>
+                </li>
+
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
                 </li>

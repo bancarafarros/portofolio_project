@@ -12,7 +12,7 @@ class ToPDF extends Dompdf {
 
 	public function generatePDF($view, $data = array()) {
 		// $dompdf = new Dompdf(array('enable_remote' => true));
-		// $dompdf = new Dompdf();
+		$dompdf = new Dompdf();
 		$options = new Options();
 		$options->setIsRemoteEnabled(TRUE);
 		$options->setIsPhpEnabled(TRUE);

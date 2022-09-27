@@ -31,7 +31,7 @@
                     <p>SOCIAL MEDIA</p>
                 </div>
                 <?php foreach ($social_medias as $sm) : ?>
-                    <?= '<img src="' . base_url('assets/img/' . $sm->icon) . '"width="10px" height="10px">'; ?>
+                    <?= '<img src="' . base_url('assets/img/icons/' . $sm->icon) . '"width="10px" height="10px">'; ?>
                     <a style="text-decoration: none;" href="<?= $sm->url ?>">
                         <p class="p1"><?= $sm->name ?></p>
                     </a>
@@ -121,22 +121,62 @@
 
             <div class="box-2">
                 <h2>EDUCATION</h2>
-                <?php foreach ($educations as $edu) : ?>
+                <?php foreach (array_slice($educations, 0, 1) as $edu) : ?>
+                    <p class="p3"><?= $edu['start_date'][0] . $edu['start_date'][1] . $edu['start_date'][2] . $edu['start_date'][3] .
+                        ' - ' . $edu['graduated_date'][0] . $edu['graduated_date'][1] . $edu['graduated_date'][2] . $edu['graduated_date'][3] ?>
+                        <span><?= $edu['name'] ?></span>
+                    </p>
+                    <p class="p2">
+                        <?= $edu['description'] ?>
+                    </p>
+                <?php endforeach; ?>
+
+                <?php foreach (array_slice($educations, 1, 1) as $edu) : ?>
+                    <p class="p3"><?= $edu['start_date'][0] . $edu['start_date'][1] . $edu['start_date'][2] . $edu['start_date'][3] . ' - PRESENT' ?>
+                        <span><?= $edu['name'] ?></span>
+                    </p>
+                    <p class="p2">
+                        <?= $edu['description'] ?>
+                    </p>
+                <?php endforeach; ?>
+
+                <!-- <?php foreach ($educations as $edu) : ?>
                     <p class="p3"><?= $edu->start_date ?> - <?= $edu->graduated_date ?><span><?= $edu->name ?></span></p>
                     <p class="p2">
                         <?= $edu->description ?>
                     </p>
-                <?php endforeach; ?>
+                <?php endforeach; ?> -->
             </div>
 
             <div class="box-2">
                 <h2>WORK EXPERIENCE</h2>
-                <?php foreach ($experiences as $exp) : ?>
+                <?php foreach (array_slice($experiences, 0, 1) as $exp) : ?>
+                    <p class="p3">
+                        <?= $exp['start_date'][0] . $exp['start_date'][1] . $exp['start_date'][2] . $exp['start_date'][3] .
+                        ' - ' . $exp['resignated_date'][0] . $exp['resignated_date'][1] . $exp['resignated_date'][2] . $exp['resignated_date'][3] ?>
+                        <span><?= $exp['name'] ?></span>
+                    </p>
+                    <p class="p2">
+                        <?= $exp['description'] ?>
+                    </p>
+                <?php endforeach; ?>
+
+                <?php foreach (array_slice($experiences, 1, 1) as $exp) : ?>
+                    <p class="p3">
+                        <?= $exp['start_date'][0] . $exp['start_date'][1] . $exp['start_date'][2] . $exp['start_date'][3] . ' - PRESENT' ?>
+                        <span><?= $exp['name'] ?></span>
+                    </p>
+                    <p class="p2">
+                        <?= $exp['description'] ?>
+                    </p>
+                <?php endforeach; ?>
+
+                <!-- <?php foreach ($experiences as $exp) : ?>
                     <p class="p3"><?= $exp->start_date ?> - <?= $exp->resignated_date ?><span><?= $exp->name ?></span></p>
                     <p class="p2">
                         <?= $exp->description ?>
                     </p>
-                <?php endforeach ?>
+                <?php endforeach ?> -->
             </div>
         </div>
     </div>

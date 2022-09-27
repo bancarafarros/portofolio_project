@@ -132,5 +132,5 @@ class CCategory extends CI_Controller {
         </div>');
         redirect(base_url('CCategory'));
     }
-    
 }
+?>
