@@ -6,6 +6,7 @@ body {
 	letter-spacing: 2px;
 }
 
+/*  */
 * {
 	margin: 0px;
 	padding: 0px;
@@ -64,6 +65,7 @@ body {
 	margin-right: -15px;
 }
 
+/*  */
 .heading::after {
 	content: "";
 	position: absolute;
