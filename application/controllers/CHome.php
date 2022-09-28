@@ -26,7 +26,7 @@ class CHome extends CI_Controller {
 		$data['educations'] = $this->mhome->tampilEducations()->result_array();
 		$data['languages'] = $this->mhome->tampilLanguages()->result();
 		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
-        $this->load->view('VCV', $data);
+        $this->load->view('cv/VCV', $data);
 	}
 	
 	public function toPDF() {
@@ -37,7 +37,24 @@ class CHome extends CI_Controller {
 		$data['educations'] = $this->mhome->tampilEducations()->result_array();
 		$data['languages'] = $this->mhome->tampilLanguages()->result();
 		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
-		$this->topdf->generatePDF('VCV', $data);
+		$this->topdf->generatePDF('cv/VCV', $data);
     }
+
+	public function mPDF() {
+		$data['hobbies'] = $this->mhome->tampilHobbies()->result();
+		$data['social_medias'] = $this->mhome->tampilSocialMedias()->result();
+		$data['cv_data'] = $this->mhome->tampilCVData()->result_array();
+		$data['skills'] = $this->mhome->tampilSkills()->result();
+		$data['educations'] = $this->mhome->tampilEducations()->result_array();
+		$data['languages'] = $this->mhome->tampilLanguages()->result();
+		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
+		$this->load->view('cv/VCV', $data, TRUE);
+		
+		$mpdf = new \Mpdf\Mpdf();
+		// $html = $this->load->view('cv/VCV', $data, TRUE);
+		$html = $this->load->view('VWorkDetail');
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+	}
 }
 ?>

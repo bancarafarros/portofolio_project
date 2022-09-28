@@ -6,13 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/stylecv.css') ?>">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style><?php echo file_get_contents('assets/css/stylecv.css') ?></style>
+    <style><?php echo file_get_contents('./assets/css/stylecv.css') ?></style>
     <?php
-    // $imgpath = base_url('assets/img/almet.jpg');
-    // $ext = pathinfo($imgpath, PATHINFO_EXTENSION);
-    // $data = file_get_contents($imgpath);
-    // $base64 = 'data:image/' . $ext . ';base64,' . base64_encode($data);
-    // $logo = base64_encode(file_get_contents(base_url('assets/img/almet.jpg')));
+        
     ?>
 </head>
 
@@ -20,11 +16,9 @@
     <div class="main">
         <div class="left">
             <br>
-            <div class="profile-img"><img src="<?php echo base_url('assets/img/almet.jpg') ?>"></div>
-            <!-- <div class="profile-img"><img src="{{'data:image/png;base64,' . base64_encode(file_get_contents(@$image))}}" alt="image" ></div> -->
-            <!-- <div class="profile-img"><img src="<?php echo base64_decode(file_get_contents(base_url('assets/img/almet.jpg'))) ?>"></div> -->
-            <!-- <div class="profile-img"><img src="<?php echo base64_decode($logo) ?>"></div> -->
-            <!-- <div class="profile-img"><img src="data:image/png;base64, <?= $logo ?>" class="img-fluid" alt="..." /></div> -->
+            <!-- <div class="profile-img"><img src="/assets/img/almet.jpg"></div> -->
+            <div class="profile-img"><img src="http://portofolio_project.test/assets/img/almet.jpg"></div>
+            
 
             <div class="box-1">
                 <div class="heading">

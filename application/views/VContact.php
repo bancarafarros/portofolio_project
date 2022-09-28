@@ -58,7 +58,7 @@
             amet sint. Velit officia consequat duis enim velit mollit.
             Exercitation veniam consequat sunt nostrud amet.
           </p><br>
-          <a class="btn" style="background-color: #ff6464; color: #ffffff" href="<?= base_url('CHome/topdf') ?>">Download Resume</a>
+          <a class="btn" target="_blank" style="background-color: #ff6464; color: #ffffff" href="<?= base_url('CHome/topdf') ?>">Download Resume</a>
         </div>
 
         <div class="col-md-6">
