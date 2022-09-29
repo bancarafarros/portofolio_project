@@ -11,20 +11,22 @@ class ToPDF extends Dompdf {
 	}
 
 	public function generatePDF($view, $data = array()) {
-		// $dompdf = new Dompdf();
 		$options = new Options();
 		$options->setIsRemoteEnabled(TRUE);
 		$options->setIsPhpEnabled(TRUE);
+		$options->setDefaultFont('Montserrat');
 		$dompdf = new Dompdf($options);
 
 		$html = $this->ci()->load->view($view, $data, TRUE);
+		// echo $html;
+		// die;
 		$paper_size = 'A4';
 		$orientation = 'potrait';
 
 		$dompdf->loadHtml($html);
 		$dompdf->setPaper($paper_size, $orientation);
 		$dompdf->render();
-		$dompdf->stream("CV.pdf", array('Attachment' => 0));
+		$dompdf->stream("CV.pdf", array('Attachment' => 1));
 	}
 }
 ?>
