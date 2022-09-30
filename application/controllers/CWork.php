@@ -12,8 +12,8 @@ class CWork extends CI_Controller {
     }
 
     public function index() {
-        $data['works'] = $this->mwork->tampilData()->result();
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        $data['works'] = $this->MWork->tampilData()->result();
+        $data['categories'] = $this->MCategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
@@ -30,15 +30,15 @@ class CWork extends CI_Controller {
             "year" => $this->input->post("year"),
             "category" => $this->input->post("category")
         ];
-        $works = $this->mwork->getdatatable($search, $start, $length, $filter);
+        $works = $this->MWork->getdatatable($search, $start, $length, $filter);
         $no = $start + 1;
 
         foreach ($works as $i => $work) {
             $work->no = $no++;
         }
 
-        $countAll = $this->mwork->countTotal();
-        $countFiltered = $this->mwork->countFiltered($search, $start, $length, $filter);
+        $countAll = $this->MWork->countTotal();
+        $countFiltered = $this->MWork->countFiltered($search, $start, $length, $filter);
 
         return $this->output
             ->set_content_type('application/json')
@@ -51,7 +51,7 @@ class CWork extends CI_Controller {
     }
 
     public function halamanPreview($id) {
-        $data['works'] = $this->mwork->workPreview($id);
+        $data['works'] = $this->MWork->workPreview($id);
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
@@ -162,8 +162,8 @@ class CWork extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['works'] = $this->mwork->halamanUpdate($where, 'works')->result();
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        $data['works'] = $this->MWork->halamanUpdate($where, 'works')->result();
+        $data['categories'] = $this->MCategory->tampilData()->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('VUpdateWork', $data);

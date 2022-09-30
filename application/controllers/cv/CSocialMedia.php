@@ -23,15 +23,15 @@ class CSocialMedia extends CI_Controller {
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
         $length  = intval($this->input->post("length"));
-        $socialMedias = $this->msocialmedia->getdatatable($search, $start, $length);
+        $socialMedias = $this->MSocialMedia->getdatatable($search, $start, $length);
         $no = $start + 1;
     
         foreach ($socialMedias as $i => $socialMedia) {
             $socialMedia->no = $no++;
         }
         
-        $countAll = $this->msocialmedia->countTotal();
-        $countFiltered = $this->msocialmedia->countFiltered($search, $start, $length);
+        $countAll = $this->MSocialMedia->countTotal();
+        $countFiltered = $this->MSocialMedia->countFiltered($search, $start, $length);
     
         return $this->output
                     ->set_content_type('application/json')
@@ -108,7 +108,7 @@ class CSocialMedia extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['social_medias'] = $this->msocialmedia->halamanUpdate($where, 'social_medias')->result();
+        $data['social_medias'] = $this->MSocialMedia->halamanUpdate($where, 'social_medias')->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('cv/VUpdateSocialMedia', $data);

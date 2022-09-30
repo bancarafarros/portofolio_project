@@ -23,15 +23,15 @@ class CExperience extends CI_Controller {
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
         $length  = intval($this->input->post("length"));
-        $experiences = $this->mexperience->getdatatable($search, $start, $length);
+        $experiences = $this->MExperience->getdatatable($search, $start, $length);
         $no = $start + 1;
     
         foreach ($experiences as $i => $experience) {
             $experience->no = $no++;
         }
         
-        $countAll = $this->mexperience->countTotal();
-        $countFiltered = $this->mexperience->countFiltered($search, $start, $length);
+        $countAll = $this->MExperience->countTotal();
+        $countFiltered = $this->MExperience->countFiltered($search, $start, $length);
     
         return $this->output
                     ->set_content_type('application/json')
@@ -105,7 +105,7 @@ class CExperience extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['experiences'] = $this->mexperience->halamanUpdate($where, 'experiences')->result();
+        $data['experiences'] = $this->MExperience->halamanUpdate($where, 'experiences')->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('cv/VUpdateExperience', $data);

@@ -19,13 +19,13 @@ class CHome extends CI_Controller {
 	}
 	
 	public function toPDF() {
-		$data['hobbies'] = $this->mhome->tampilHobbies()->result();
-		$data['social_medias'] = $this->mhome->tampilSocialMedias()->result();
-		$data['cv_data'] = $this->mhome->tampilCVData()->result_array();
-		$data['skills'] = $this->mhome->tampilSkills()->result();
-		$data['educations'] = $this->mhome->tampilEducations()->result_array();
-		$data['languages'] = $this->mhome->tampilLanguages()->result();
-		$data['experiences'] = $this->mhome->tampilExperiences()->result_array();
+		$data['hobbies'] = $this->MHome->tampilHobbies()->result();
+		$data['social_medias'] = $this->MHome->tampilSocialMedias()->result();
+		$data['cv_data'] = $this->MHome->tampilCVData()->result_array();
+		$data['skills'] = $this->MHome->tampilSkills()->result();
+		$data['educations'] = $this->MHome->tampilEducations()->result_array();
+		$data['languages'] = $this->MHome->tampilLanguages()->result();
+		$data['experiences'] = $this->MHome->tampilExperiences()->result_array();
 		$this->topdf->generatePDF('cv/VCV', $data);
     }
 }

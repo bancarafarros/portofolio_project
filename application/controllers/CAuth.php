@@ -10,7 +10,7 @@ class CAuth extends CI_Controller {
         $username = $this->input->post('username');
         $password = $this->input->post(hash('sha256', 'password'));
         
-        $auth = $this->mauth->cekLogin($username, $password );
+        $auth = $this->MAuth->cekLogin($username, $password );
 
         if ($auth == FALSE) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">

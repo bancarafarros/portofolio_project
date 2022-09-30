@@ -23,15 +23,15 @@ class CEducation extends CI_Controller {
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
         $length  = intval($this->input->post("length"));
-        $educations = $this->meducation->getdatatable($search, $start, $length);
+        $educations = $this->MEducation->getdatatable($search, $start, $length);
         $no = $start + 1;
     
         foreach ($educations as $i => $education) {
             $education->no = $no++;
         }
         
-        $countAll = $this->meducation->countTotal();
-        $countFiltered = $this->meducation->countFiltered($search, $start, $length);
+        $countAll = $this->MEducation->countTotal();
+        $countFiltered = $this->MEducation->countFiltered($search, $start, $length);
     
         return $this->output
                     ->set_content_type('application/json')
@@ -105,7 +105,7 @@ class CEducation extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['educations'] = $this->meducation->halamanUpdate($where, 'educations')->result();
+        $data['educations'] = $this->MEducation->halamanUpdate($where, 'educations')->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('cv/VUpdateEducation', $data);

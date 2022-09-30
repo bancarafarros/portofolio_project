@@ -12,8 +12,8 @@ class CPost extends CI_Controller {
     }
 
     public function index() {
-        $data['posts'] = $this->mpost->tampilData()->result();
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        $data['posts'] = $this->MPost->tampilData()->result();
+        $data['categories'] = $this->MCategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
@@ -26,15 +26,15 @@ class CPost extends CI_Controller {
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
         $length  = intval($this->input->post("length"));
-        $posts = $this->mpost->getdatatable($search, $start, $length);
+        $posts = $this->MPost->getdatatable($search, $start, $length);
         $no = $start + 1;
     
         foreach ($posts as $i => $post) {
             $post->no = $no++;
         }
         
-        $countAll = $this->mpost->countTotal();
-        $countFiltered = $this->mpost->countFiltered($search, $start, $length);
+        $countAll = $this->MPost->countTotal();
+        $countFiltered = $this->MPost->countFiltered($search, $start, $length);
     
         return $this->output
                     ->set_content_type('application/json')
@@ -127,8 +127,8 @@ class CPost extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['posts'] = $this->mpost->halamanUpdate($where, 'posts')->result();
-        $data['categories'] = $this->mcategory->tampilData()->result();
+        $data['posts'] = $this->MPost->halamanUpdate($where, 'posts')->result();
+        $data['categories'] = $this->MCategory->tampilData()->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('VUpdatePost', $data);

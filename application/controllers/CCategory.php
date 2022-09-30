@@ -12,7 +12,7 @@ class CCategory extends CI_Controller {
     }
 
     public function index() {
-        // $data['categories'] = $this->mcategory->tampilData()->result();
+        // $data['categories'] = $this->MCategory->tampilData()->result();
 
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
@@ -26,15 +26,15 @@ class CCategory extends CI_Controller {
         $draw  = intval($this->input->post("draw"));
         $start  = intval($this->input->post("start"));
         $length  = intval($this->input->post("length"));
-        $works = $this->mcategory->getdatatable($search, $start, $length);
+        $works = $this->MCategory->getdatatable($search, $start, $length);
         $no = $start + 1;
     
         foreach ($works as $i => $work) {
             $work->no = $no++;
         }
         
-        $countAll = $this->mcategory->countTotal();
-        $countFiltered = $this->mcategory->countFiltered($search, $start, $length);
+        $countAll = $this->MCategory->countTotal();
+        $countFiltered = $this->MCategory->countFiltered($search, $start, $length);
     
         return $this->output
                     ->set_content_type('application/json')
@@ -81,7 +81,7 @@ class CCategory extends CI_Controller {
 
     public function halamanUpdate($id) {
         $where = array('id' => $id);
-        $data['categories'] = $this->mcategory->halamanUpdate($where, 'categories')->result();
+        $data['categories'] = $this->MCategory->halamanUpdate($where, 'categories')->result();
         $this->load->view('VHeader');
         $this->load->view('VSidebar');
         $this->load->view('VUpdateCategory', $data);
